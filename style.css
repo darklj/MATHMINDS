@@ -1,0 +1,348 @@
+#background-slideshow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1;
+  transition: background-image 1s ease-in-out;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  text-align: center;
+  overflow-x: hidden;
+  position: relative;
+  z-index: 0;
+
+  /* Initial background setup */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  /* Light overlay using a pseudo element */
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(255, 255, 255, 0.6); /* white translucent overlay */
+  pointer-events: none;
+  z-index: -1;
+}
+
+
+
+
+h1 {
+  margin-bottom: 10px;
+  color: #ff6f61;
+  font-size: 40px;
+  text-shadow: 2px 2px white;
+}
+
+.info {
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: #333;
+  background: rgba(255, 255, 255, 0.8);
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 20px;
+}
+
+.game-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+  margin-top: 30px;
+  z-index: 1;
+  position: relative;
+}
+
+.puzzle-board {
+  display: grid;
+  grid-template-columns: repeat(4, 100px);
+  grid-template-rows: repeat(4, 100px);
+  gap: 10px;
+  justify-content: center;
+  background-image: url('box\ 1.jpg'); /* ← REPLACE with your image path */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 10px;
+  border-radius: 10px;
+  border: 3px solid #444;
+}
+
+.piece {
+  width: 100px;
+  height: 100px;
+  background-color: #ffd1dc;
+  border: 3px solid #555;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  cursor: grab;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s;
+}
+
+.piece:active {
+  transform: scale(1.1);
+}
+
+.pieces {
+  display: grid;
+  grid-template-columns: repeat(4, 80px);
+  gap: 10px;
+  width: fit-content;
+  padding: 10px;
+  border-radius: 10px;
+  border: 3px solid #444;
+
+  background-image: url('box1.1.jpg'); /* Use your image path */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  position: relative;
+  overflow: hidden;
+}
+
+/* Remove the ::before block entirely */
+
+/* Make sure child elements stay above background */
+.pieces > * {
+  position: relative;
+  z-index: 1;
+}
+
+.answer-piece {
+  width: 80px;
+  height: 80px;
+  background-color: #f2a7a7;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+}
+
+.answer-piece:hover {
+  transform: scale(1.1);
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+@keyframes animateSolved {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+.piece.correct {
+  border-color: #28a745;
+  box-shadow: 0 0 10px #28a745;
+  position: relative;
+  color: transparent;
+  animation: animateSolved 1s forwards;
+}
+
+.piece.correct::after {
+  content: '✔';
+  color: #28a745;
+  font-size: 32px;
+  position: absolute;
+  top: 30%;
+  left: 35%;
+}
+
+.piece.wrong {
+  border-color: #dc3545;
+  box-shadow: 0 0 10px #dc3545;
+  position: relative;
+}
+
+.piece.wrong::after {
+  content: '✖';
+  color: #dc3545;
+  font-size: 32px;
+  position: absolute;
+  top: 30%;
+  left: 35%;
+}
+
+/* Animated pastel background */
+@keyframes pastelShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Dropping candy effect */
+.candy {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #ffb3ba;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: fallCandy 10s linear infinite;
+  z-index: 0;
+}
+
+@keyframes fallCandy {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+@keyframes colorCycle {
+  0%   { background-color: #ffd1dc; border-color: #ff69b4; box-shadow: 0 0 10px #ff69b4; }
+  25%  { background-color: #ffe0ac; border-color: #ffb347; box-shadow: 0 0 10px #ffb347; }
+  50%  { background-color: #d0f0fd; border-color: #1e90ff; box-shadow: 0 0 10px #1e90ff; }
+  75%  { background-color: #e2f0cb; border-color: #90ee90; box-shadow: 0 0 10px #90ee90; }
+  100% { background-color: #e6e6fa; border-color: #9370db; box-shadow: 0 0 10px #9370db; }
+}
+
+.piece,
+.answer-piece {
+  animation: colorCycle 5s linear infinite;
+  border-width: 3px;
+  border-style: solid;
+}
+
+/* --- ADDITION START --- */
+
+/* Responsive adjustments for phone and laptop screens */
+@media (max-width: 768px) {
+  .game-container {
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .puzzle-board {
+    grid-template-columns: repeat(4, 70px);
+    grid-template-rows: repeat(4, 70px);
+    gap: 8px;
+    width: fit-content;
+  }
+
+  .piece {
+    width: 70px;
+    height: 70px;
+    font-size: 16px;
+  }
+
+  .pieces {
+    grid-template-columns: repeat(4, 60px);
+    gap: 8px;
+    width: fit-content;
+  }
+
+  .answer-piece {
+    width: 60px;
+    height: 60px;
+    font-size: 14px;
+  }
+
+  .info {
+    font-size: 16px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+}
+
+/* Style for the hint box */
+#hint {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #007BFF;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+  transition: opacity 0.5s ease;
+}
+
+#music-controls {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 1000;
+}
+
+#music-controls button {
+  font-size: 18px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}
+
+#music-controls input[type="range"] {
+  width: 100px;
+  cursor: pointer;
+}
+

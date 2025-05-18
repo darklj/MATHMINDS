@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Math Puzzle Adventure</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+  <h1>Math Puzzle Adventure</h1>
+  
+<audio id="bgMusic" src="One Piece Bink's Sake - English version with lyrics [zVvdjlgHAag].mp3" loop></audio>
+<!--music ends here-->
+
+  <div class="info">
+    <span>Score: <span id="score">0</span></span>
+    <span>Level: <span id="level">1</span></span>
+    <span>Time Left: <span id="timer">120</span>s</span>
+  </div>
+
+  <!-- Added hint container for shake-triggered hint -->
+  <div id="hint" style="display:none; margin-top:20px; font-size:18px; color:#007BFF; font-weight:bold;">
+    Hint: <span id="hintText"></span>
+  </div>
+
+  <div class="game-container">
+    <div class="puzzle-board" id="puzzleBoard"></div>
+    <div class="pieces" id="pieces"></div>
+  </div>
+
+  <script src="script.js"></script>
+
+  <audio id="bgMusic" src="One Piece Bink's Sake - English version with lyrics [zVvdjlgHAag].mp3" autoplay loop hidden></audio>
+</body>
+
+<div id="background-slideshow"></div>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
